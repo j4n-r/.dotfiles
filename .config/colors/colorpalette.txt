@@ -1,0 +1,6 @@
+/* CSS HEX */
+--fandango: #b62d8fff;
+--mexican-pink: #e3198eff;
+--russian-violet: #18003cff;
+--russian-violet-2: #160032ff;
+--russian-violet-3: #160033ff;
