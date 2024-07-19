@@ -5,8 +5,13 @@ import = [
     # "~/.config/alacritty/catppuccin-macchiato.toml"
     # "~/.config/alacritty/catppuccin-mocha.toml"
     #
-    "~/.config/alacritty/flexoki.toml",
+    #    "~/.config/alacritty/flexoki.toml",
+    "~/.config/alacritty/rose-pine.toml"
 ]
+
+[window]
+opacity = 0.8 
+
 [env]
 TERM = "xterm-256color"
 
@@ -25,3 +30,4 @@ style = "Bold"
 [font.italic]
 family = "JetBrainsMono Nerd Font"
 style = "Italic"
+

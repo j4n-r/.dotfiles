@@ -1,7 +1,9 @@
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+# If you come from bash you might have to change your $PATH. export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
+# export HYPRLAND_USE_HYPRGAMMA=1
+
+
 export ZSH="$HOME/.oh-my-zsh"
 
 export XKB_DEFAULT_LAYOUT="us-german-umlaut"

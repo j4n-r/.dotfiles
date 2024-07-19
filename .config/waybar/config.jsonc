@@ -1,19 +1,21 @@
 {
     "layer": "top",
-    "position": "top",
+    "position": "bottom",
     "margin-left": 10,
     "margin-right": 10,
-    "margin-top": 10,
+    // "margin-top": 10,
+    "margin-bottom":10,
     "spacing": 1,
 
 
-    "modules-left": ["custom/power", "sway/workspaces"],
+    "modules-left": ["custom/power", "hyprland/workspaces"],
     "modules-center": ["clock"],
     "modules-right": ["cpu", "temperature", "memory","battery", "disk", "pulseaudio", "network", "tray"],
 
-    "sway/workspaces": {
+    "hyprland/workspaces": {
         "on-click": "activate",
         "format": "{icon}",
+        "all-outputs": true,
     },
     "tray": {
         "icon-size": 18,
@@ -90,7 +92,7 @@
       "exec-on-event": "true",
       "on-click": "wofi --show=drun",
     },
-    "custom/sepp": {
-        "format": "|"
-    },
+    // "custom/sepp": {
+    //     "format": "|"
+    // },
 }

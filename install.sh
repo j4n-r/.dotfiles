@@ -19,7 +19,7 @@ is_pacman_available() {
 install_packages() {
     echo "Installing packages" | tee -a "$LOG_FILE"
     # Essentials
-    sudo pacman -Syu --noconfirm rofi-wayland waybar mako alacritty tmux ly fzf wl-copy brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg stow 2>&1 | tee -a "$LOG_FILE"
+    sudo pacman -Syu --noconfirm rofi-wayland waybar swaync alacritty tmux ly fzf brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio pavucontrol man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg nwg-look stow 2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing development tools..." | tee -a "$LOG_FILE"
     sudo pacman -S --noconfirm neovim python ninja cmake clang sqlite postgresql nodejs npm jdk-openjdk maven docker 2>&1 | tee -a "$LOG_FILE"
@@ -28,7 +28,7 @@ install_packages() {
     sudo pacman -S --noconfirm sway swaybg swayidle 2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing Hyprland and related tools..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm hyprlock hyprpaper hypridle xdg-desktop-portal-hyprland 2>&1 | tee -a "$LOG_FILE"
+    sudo pacman -S --noconfirm hyprland hyprlock hyprpaper hypridle xdg-desktop-portal-hyprland 2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing additional applications..." | tee -a "$LOG_FILE"
     sudo pacman -S --noconfirm obsidian firefox bitwarden 2>&1 | tee -a "$LOG_FILE"
@@ -37,7 +37,7 @@ install_packages() {
     sudo pacman -S --noconfirm grim slurp 2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing connection packages..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm bluez bluez-utils blueberry nm-applet 2>&1 | tee -a "$LOG_FILE"
+    sudo pacman -S --noconfirm bluez bluez-utils blueberry network-manager-applet 2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing additional useful packages..." | tee -a "$LOG_FILE"
     sudo pacman -S --noconfirm btop neofetch tldr 2>&1 | tee -a "$LOG_FILE"
@@ -66,26 +66,41 @@ configure_zsh() {
     chsh -s $(which zsh) 2>&1 | tee -a "$LOG_FILE"
 }
 
+configure_tmux_tpm() {
+    echo "cloneing tpm repo" | tee -a "$LOG_FILE"
+    sh -c "$(git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+)" 2>&1 | tee -a "$LOG_FILE"
+
+    echo "source tmux " | tee -a "$LOG_FILE"
+    tmux source ~/.tmux.conf 2>&1 | tee -a "$LOG_FILE"
+
+}
+
+
 # Function to start necessary services
 start_services() {
     echo "Starting and enabling services..." | tee -a "$LOG_FILE"
 
     echo "Starting and enabling Bluetooth service..." | tee -a "$LOG_FILE"
-    sudo systemctl start bluetooth.service 2>&1 | tee -a "$LOG_FILE"
     sudo systemctl enable bluetooth.service 2>&1 | tee -a "$LOG_FILE"
+    sudo systemctl start bluetooth.service 2>&1 | tee -a "$LOG_FILE"
 
     echo "Starting and enabling NetworkManager service..." | tee -a "$LOG_FILE"
-    sudo systemctl start NetworkManager 2>&1 | tee -a "$LOG_FILE"
     sudo systemctl enable NetworkManager 2>&1 | tee -a "$LOG_FILE"
+    sudo systemctl start NetworkManager 2>&1 | tee -a "$LOG_FILE"
 
     echo "Enabling TLP services for power management..." | tee -a "$LOG_FILE"
     sudo systemctl enable tlp.service 2>&1 | tee -a "$LOG_FILE"
     sudo systemctl enable NetworkManager-dispatcher.service 2>&1 | tee -a "$LOG_FILE"
     sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket 2>&1 | tee -a "$LOG_FILE"
+    sudo systemctl start tlp.service 
 
     echo "Starting and enabling Thermald service..." | tee -a "$LOG_FILE"
-    sudo systemctl start thermald.service 2>&1 | tee -a "$LOG_FILE"
     sudo systemctl enable thermald.service 2>&1 | tee -a "$LOG_FILE"
+    sudo systemctl start thermald.service 2>&1 | tee -a "$LOG_FILE"
+
+    sudo systemctl enable ly.service
+    sudo systemctl start ly.service
 }
 
 # Main script

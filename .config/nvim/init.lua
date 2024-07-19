@@ -100,4 +100,9 @@ require("lazy").setup("plugins")
 vim.notify = require("notify")
 -- set colorscheme
 -- Set colorscheme after options
-vim.cmd("colorscheme flexoki-dark")
+-- vim.cmd("colorscheme flexoki-dark")
+vim.cmd("colorscheme rose-pine")
+-- Set transparent background
+vim.cmd([[
+  hi Normal guibg=NONE ctermbg=NONE
+]])
