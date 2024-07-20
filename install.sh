@@ -102,7 +102,11 @@ start_services() {
     sudo systemctl enable ly.service
     sudo systemctl start ly.service
 }
+yay_apps() {
+   echo "installing yay stuff"
+   yay -S  bibata-cursor-theme-bin 2>&1 | tee -a "$LOG_FILE"
 
+}
 # Main script
 if [[ "$OSTYPE" =~ ^linux ]]; then
     if is_pacman_available; then
