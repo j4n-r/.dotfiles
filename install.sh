@@ -19,7 +19,7 @@ is_pacman_available() {
 install_packages() {
     echo "Installing packages" | tee -a "$LOG_FILE"
     # Essentials
-    sudo pacman -Syu --noconfirm rofi-wayland waybar swaync alacritty tmux ly fzf brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio pavucontrol man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg nwg-look stow 2>&1 | tee -a "$LOG_FILE"
+    sudo pacman -Syu --noconfirm wofi-wayland waybar swaync alacritty tmux ly fzf brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio pavucontrol man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg nwg-look stow 2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing development tools..." | tee -a "$LOG_FILE"
     sudo pacman -S --noconfirm neovim python ninja cmake clang sqlite postgresql nodejs npm jdk-openjdk maven docker 2>&1 | tee -a "$LOG_FILE"
@@ -62,8 +62,6 @@ configure_zsh() {
     echo "Configuring Zsh and Oh-My-Zsh..." | tee -a "$LOG_FILE"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 2>&1 | tee -a "$LOG_FILE"
 
-    echo "Setting Zsh as the default shell..." | tee -a "$LOG_FILE"
-    chsh -s $(which zsh) 2>&1 | tee -a "$LOG_FILE"
 }
 
 configure_tmux_tpm() {
@@ -100,11 +98,12 @@ start_services() {
     sudo systemctl start thermald.service 2>&1 | tee -a "$LOG_FILE"
 
     sudo systemctl enable ly.service
-    sudo systemctl start ly.service
+    #sudo systemctl start ly.service
 }
 yay_apps() {
    echo "installing yay stuff"
-   yay -S  bibata-cursor-theme-bin 2>&1 | tee -a "$LOG_FILE"
+   yay -S  bibata-cursor-theme-bin rose-pine-gtk-theme-full2 >&1 | tee -a "$LOG_FILE"
+
 
 }
 # Main script
@@ -115,6 +114,10 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
         install_yay
         configure_zsh
         start_services
+	yay_apps
+    echo "Setting Zsh as the default shell..." | tee -a "$LOG_FILE"
+    chsh -s $(which zsh) 2>&1 | tee -a "$LOG_FILE"
+
         echo "Installation and setup complete!" | tee -a "$LOG_FILE"
     else
         echo "This script is only for Arch-based distributions." | tee -a "$LOG_FILE"

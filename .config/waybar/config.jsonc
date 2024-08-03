@@ -49,7 +49,7 @@
     },
     "network": {
         "format-wifi": " :{ipaddr}",
-        "format-ethernet": " {ipaddr}/{cidr}",
+        "format-ethernet": "󰌗 {ipaddr}/{cidr}",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
