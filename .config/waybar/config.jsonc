@@ -8,7 +8,7 @@
     "spacing": 1,
 
 
-    "modules-left": ["custom/power", "hyprland/workspaces"],
+    "modules-left": ["custom/power", "hyprland/workspaces", "custom/spotify"],
     "modules-center": ["clock"],
     "modules-right": ["cpu", "temperature", "memory","battery", "disk", "pulseaudio", "network", "tray"],
 
@@ -16,6 +16,13 @@
         "on-click": "activate",
         "format": "{icon}",
         "all-outputs": true,
+    },
+"custom/spotify": {
+        "interval": 1,
+        "exec": "~/.config/scripts/now-playing",
+        "on-click": "~/.config/scripts/play-next",
+        "on-click-right": "~/.config/scripts/play-previous",
+        "escape": true
     },
     "tray": {
         "icon-size": 18,

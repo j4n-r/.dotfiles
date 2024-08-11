@@ -19,7 +19,7 @@ is_pacman_available() {
 install_packages() {
     echo "Installing packages" | tee -a "$LOG_FILE"
     # Essentials
-    sudo pacman -Syu --noconfirm wofi-wayland waybar swaync alacritty tmux ly fzf brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio pavucontrol man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg nwg-look stow 2>&1 | tee -a "$LOG_FILE"
+    sudo pacman -Syu --noconfirm wofi-wayland waybar swaync alacritty tmux ly fzf brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio pavucontrol man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg nwg-look stow pulseaudio-bluetooth playerctl spotify-tui spotifyd spotify-launcher2>&1 | tee -a "$LOG_FILE"
 
     echo "Installing development tools..." | tee -a "$LOG_FILE"
     sudo pacman -S --noconfirm neovim python ninja cmake clang sqlite postgresql nodejs npm jdk-openjdk maven docker 2>&1 | tee -a "$LOG_FILE"

@@ -42,7 +42,6 @@ window#waybar.empty {
   background: none;
 }
 
-
 #custom-power {
 }
 
@@ -56,7 +55,7 @@ window#waybar.empty {
   color: @foam;
 }
 
-
+#custom-spotify,
 #cpu,
 #temperature,
 #memory,
