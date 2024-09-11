@@ -9,8 +9,12 @@ import = [
     "~/.config/alacritty/rose-pine.toml"
 ]
 
+[shell]
+program = "tmux"
+
 [window]
 opacity = 0.8 
+decorations = "Buttonless"
 
 [window.padding]
 x = 8
@@ -21,7 +25,7 @@ TERM = "xterm-256color"
 
 
 [font]
-size = 12.0
+size = 15.0
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
