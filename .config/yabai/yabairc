@@ -1,0 +1,16 @@
+
+yabai -m config layout                       bsp
+yabai -m config top_padding                  10
+yabai -m config bottom_padding               10
+yabai -m config left_padding                 10
+yabai -m config right_padding                10
+yabai -m config window_gap                   10
+
+yabai -m rule --add app="^$" manage=on
+yabai -m rule --add app="^Caclulator$" manage=off 
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^System Settings$" manage=off
+# set mouse follows focus mode (default: off)
+yabai -m config mouse_follows_focus on
+
+borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 &
