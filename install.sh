@@ -1,133 +1,58 @@
-#!/bin/bash
+#!/bin/zsh
 
-# Exit immediately if a command exits with a non-zero status
-set -e
+# Install xCode cli tools
+echo "Installing commandline tools..."
+xcode-select --install
 
-# Function to print messages
-print_message() {
-    echo "========================================"
-    echo "$1"
-    echo "========================================"
-}
+# Install Brew
+echo "Installing Brew..."
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew analytics off
 
-# Function to set wallpaper using AppleScript
-set_wallpaper() {
-    local wallpaper_path="$1"
-    
-    if [ -f "$wallpaper_path" ]; then
-        print_message "Setting wallpaper to $wallpaper_path..."
-        osascript <<EOF
-tell application "System Events"
-    tell every desktop
-        set picture to "$wallpaper_path"
-    end tell
-end tell
-EOF
-        echo "Wallpaper set successfully."
-    else
-        echo "Wallpaper file $wallpaper_path does not exist. Skipping wallpaper setup."
-    fi
-}
-
-# Check for Homebrew and install if not present
-if ! command -v brew &> /dev/null
-then
-    print_message "Homebrew not found. Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-    # Add Homebrew to PATH for the current session
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-else
-    print_message "Homebrew is already installed."
-fi
-
-# Update Homebrew to the latest version
-print_message "Updating Homebrew..."
-brew update
-
-# Upgrade any already-installed formulae
-print_message "Upgrading installed Homebrew packages..."
-brew upgrade
-
-# Tap the Homebrew Cask Fonts repository for font installations
-print_message "Tapping homebrew/cask-fonts..."
+# Brew Taps
+echo "Installing Brew Formulae..."
 brew tap homebrew/cask-fonts
+brew tap FelixKratz/formulae
 
-# Define an array of Homebrew formulae to install
-FORMULAE=(
-    yabai
-    jankyborders
-    sketchybar
-    skhd
-    neovim
-    ripgrep
-    wget
-    starship
-    lazygit
-    btop
-    zsh               # Added Zsh
-    stow              # Added GNU Stow
-    alacritty         # Added Alacritty
-    tmux              # Added Tmux
-    zathura           # Added Zathura
-)
+# Brew Formulae
+brew install neovim
+brew install tree
+brew install wget
+brew install ripgrep
+brew install starship
+brew install zsh-autosuggestions
+brew install zsh-syntax-highlighting
+brew install fskhd --head
+brew install fyabai --head
+brew install sketchybar
+brew install lazygit
+brew install btop
+brew install zathura
+brew install tmux
+brew install stow
 
-# Define an array of Homebrew Casks to install
-CASKS=(
-    karabiner-elements
-    utm
-    font-jetbrains-mono-nerd-font
-    obsidian          # Added Obsidian
-    raycast           # Added Raycast
-    slack             # Added Slack
-    tuple             # Added Tuple
-    1password         # Added 1Password
-    linear            # Added Linear
-)
 
-# Install Homebrew formulae
-print_message "Installing Homebrew formulae..."
-for formula in "${FORMULAE[@]}"; do
-    if brew list --formula | grep -q "^${formula}\$"; then
-        echo "${formula} is already installed. Skipping."
-    else
-        echo "Installing ${formula}..."
-        brew install "$formula"
-    fi
-done
+# Brew Casks
+echo "Installing Brew Casks..."
+brew install --cask alacritty
+brew install --cask spotify
+brew install --cask font-jetbrains-mono-nerd-font
+brew install --cask krabiner-elements
+brew install --cask utm
+brew install --cask obsidian
+brew install --cask raycast
+brew install --cask slack
+brew install --cask tuple
+brew install --cask 1password
+brew install --cask linear
 
-# Install Homebrew Casks
-print_message "Installing Homebrew Casks..."
-for cask in "${CASKS[@]}"; do
-    if brew list --cask | grep -q "^${cask}\$"; then
-        echo "${cask} is already installed. Skipping."
-    else
-        echo "Installing ${cask}..."
-        brew install --cask "$cask"
-    fi
-done
 
-# Cleanup any outdated versions from Homebrew
-print_message "Cleaning up Homebrew..."
-brew cleanup
+curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
-# Define the dotfiles directory (Modify this path if your dotfiles are elsewhere)
-DOTFILES_DIR="$HOME/dotfiles"
+# Start Services
+echo "Starting Services (grant permissions)..."
+brew services start skhd
+brew services start fyabai
+brew services start sketchybar
 
-# Check if the dotfiles directory exists
-if [ -d "$DOTFILES_DIR" ]; then
-    print_message "Running stow in $DOTFILES_DIR..."
-    cd "$DOTFILES_DIR"
-    stow .
-    echo "Dotfiles have been stowed successfully."
-else
-    echo "Dotfiles directory $DOTFILES_DIR does not exist. Skipping stow."
-    echo "If you have a dotfiles repository, please clone it to $DOTFILES_DIR and rerun the script or manually run 'stow .' within it."
-fi
-
-# Set the wallpaper
-WALLPAPER_RELATIVE_PATH=".config/wallpaper/abstract.jpg"
-WALLPAPER_ABSOLUTE_PATH="$HOME/$WALLPAPER_RELATIVE_PATH"
-set_wallpaper "$WALLPAPER_ABSOLUTE_PATH"
-
-print_message "Installation complete! All specified applications have been installed."
+echo "Installation complete..."
