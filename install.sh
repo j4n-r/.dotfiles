@@ -1,127 +1,129 @@
 #!/bin/bash
 
-# Enable strict mode to exit on any error
+# Exit immediately if a command exits with a non-zero status
 set -e
 
-# Log file for capturing output and errors
-LOG_FILE="install.log"
+# Function to print messages
+print_message() {
+    echo "========================================"
+    echo "$1"
+    echo "========================================"
+}
 
-# Function to check for pacman
-is_pacman_available() {
-    if command -v pacman &>/dev/null; then
-        return 0
+# Function to set wallpaper using AppleScript
+set_wallpaper() {
+    local wallpaper_path="$1"
+    
+    if [ -f "$wallpaper_path" ]; then
+        print_message "Setting wallpaper to $wallpaper_path..."
+        osascript <<EOF
+tell application "System Events"
+    tell every desktop
+        set picture to "$wallpaper_path"
+    end tell
+end tell
+EOF
+        echo "Wallpaper set successfully."
     else
-        return 1
+        echo "Wallpaper file $wallpaper_path does not exist. Skipping wallpaper setup."
     fi
 }
 
-# Function to install packages with pacman
-install_packages() {
-    echo "Installing packages" | tee -a "$LOG_FILE"
-    # Essentials
-    sudo pacman -Syu --noconfirm wofi-wayland waybar swaync alacritty tmux ly fzf brightnessctl meson gcc pipewire wireplumber polkit-kde-agent qt5-wayland qt6-wayland gtk4 gtk3 lxappearance acpi tlp tlp-rdw sudo thermald pulseaudio pavucontrol man-db man-pages wl-clipboard curl less openssh reflector unzip wget zip tree base-devel ffmpeg nwg-look stow pulseaudio-bluetooth playerctl spotify-tui spotifyd spotify-launcher ripgrep 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing development tools..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm neovim python ninja cmake clang sqlite postgresql nodejs npm jdk-openjdk maven docker 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing Sway and related tools..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm sway swaybg swayidle 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing Hyprland and related tools..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm hyprland hyprlock hyprpaper hypridle xdg-desktop-portal-hyprland 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing additional applications..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm obsidian firefox bitwarden 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing screenshot tools..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm grim slurp 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing connection packages..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm bluez bluez-utils blueberry network-manager-applet 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing additional useful packages..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm btop neofetch tldr 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Installing Zsh and related tools..." | tee -a "$LOG_FILE"
-    sudo pacman -S --noconfirm zsh zsh-completions 2>&1 | tee -a "$LOG_FILE"
-}
-
-# Function to install yay for AUR packages
-install_yay() {
-    echo "Installing yay (AUR helper)..." | tee -a "$LOG_FILE"
-    sudo pacman -S --needed --noconfirm git base-devel 2>&1 | tee -a "$LOG_FILE"
-    git clone https://aur.archlinux.org/yay.git 2>&1 | tee -a "$LOG_FILE"
-    cd yay
-    makepkg -si --noconfirm 2>&1 | tee -a "$LOG_FILE"
-    cd ..
-    rm -rf yay
-}
-
-# Function to configure Zsh and Oh-My-Zsh
-configure_zsh() {
-    echo "Configuring Zsh and Oh-My-Zsh..." | tee -a "$LOG_FILE"
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 2>&1 | tee -a "$LOG_FILE"
-
-}
-
-configure_tmux_tpm() {
-    echo "cloneing tpm repo" | tee -a "$LOG_FILE"
-    sh -c "$(git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-)" 2>&1 | tee -a "$LOG_FILE"
-
-    echo "source tmux " | tee -a "$LOG_FILE"
-    tmux source ~/.tmux.conf 2>&1 | tee -a "$LOG_FILE"
-
-}
-
-
-# Function to start necessary services
-start_services() {
-    echo "Starting and enabling services..." | tee -a "$LOG_FILE"
-
-    echo "Starting and enabling Bluetooth service..." | tee -a "$LOG_FILE"
-    sudo systemctl enable bluetooth.service 2>&1 | tee -a "$LOG_FILE"
-    sudo systemctl start bluetooth.service 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Starting and enabling NetworkManager service..." | tee -a "$LOG_FILE"
-    sudo systemctl enable NetworkManager 2>&1 | tee -a "$LOG_FILE"
-    sudo systemctl start NetworkManager 2>&1 | tee -a "$LOG_FILE"
-
-    echo "Enabling TLP services for power management..." | tee -a "$LOG_FILE"
-    sudo systemctl enable tlp.service 2>&1 | tee -a "$LOG_FILE"
-    sudo systemctl enable NetworkManager-dispatcher.service 2>&1 | tee -a "$LOG_FILE"
-    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket 2>&1 | tee -a "$LOG_FILE"
-    sudo systemctl start tlp.service 
-
-    echo "Starting and enabling Thermald service..." | tee -a "$LOG_FILE"
-    sudo systemctl enable thermald.service 2>&1 | tee -a "$LOG_FILE"
-    sudo systemctl start thermald.service 2>&1 | tee -a "$LOG_FILE"
-
-    sudo systemctl enable ly.service
-    #sudo systemctl start ly.service
-}
-yay_apps() {
-   echo "installing yay stuff"
-   yay -S  bibata-cursor-theme-bin rose-pine-gtk-theme-full2 >&1 | tee -a "$LOG_FILE"
-
-
-}
-# Main script
-if [[ "$OSTYPE" =~ ^linux ]]; then
-    if is_pacman_available; then
-        echo "Pacman is available. Proceeding with installation..." | tee -a "$LOG_FILE"
-        install_packages
-        install_yay
-        configure_zsh
-        start_services
-	yay_apps
-    echo "Setting Zsh as the default shell..." | tee -a "$LOG_FILE"
-    chsh -s $(which zsh) 2>&1 | tee -a "$LOG_FILE"
-
-        echo "Installation and setup complete!" | tee -a "$LOG_FILE"
-    else
-        echo "This script is only for Arch-based distributions." | tee -a "$LOG_FILE"
-    fi
+# Check for Homebrew and install if not present
+if ! command -v brew &> /dev/null
+then
+    print_message "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for the current session
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 else
-    echo "This script is only for Linux distributions." | tee -a "$LOG_FILE"
+    print_message "Homebrew is already installed."
 fi
+
+# Update Homebrew to the latest version
+print_message "Updating Homebrew..."
+brew update
+
+# Upgrade any already-installed formulae
+print_message "Upgrading installed Homebrew packages..."
+brew upgrade
+
+# Tap the Homebrew Cask Fonts repository for font installations
+print_message "Tapping homebrew/cask-fonts..."
+brew tap homebrew/cask-fonts
+
+# Define an array of Homebrew formulae to install
+FORMULAE=(
+    yabai
+    jankyborders
+    sketchybar
+    skhd
+    neovim
+    ripgrep
+    wget
+    starship
+    lazygit
+    btop
+    zsh               # Added Zsh
+    stow              # Added GNU Stow
+    alacritty         # Added Alacritty
+    tmux              # Added Tmux
+    zathura           # Added Zathura
+)
+
+# Define an array of Homebrew Casks to install
+CASKS=(
+    karabiner-elements
+    utm
+    font-jetbrains-mono-nerd-font
+    obsidian          # Added Obsidian
+    raycast           # Added Raycast
+)
+
+# Install Homebrew formulae
+print_message "Installing Homebrew formulae..."
+for formula in "${FORMULAE[@]}"; do
+    if brew list --formula | grep -q "^${formula}\$"; then
+        echo "${formula} is already installed. Skipping."
+    else
+        echo "Installing ${formula}..."
+        brew install "$formula"
+    fi
+done
+
+# Install Homebrew Casks
+print_message "Installing Homebrew Casks..."
+for cask in "${CASKS[@]}"; do
+    if brew list --cask | grep -q "^${cask}\$"; then
+        echo "${cask} is already installed. Skipping."
+    else
+        echo "Installing ${cask}..."
+        brew install --cask "$cask"
+    fi
+done
+
+# Cleanup any outdated versions from Homebrew
+print_message "Cleaning up Homebrew..."
+brew cleanup
+
+# Define the dotfiles directory (Modify this path if your dotfiles are elsewhere)
+DOTFILES_DIR="$HOME/dotfiles"
+
+# Check if the dotfiles directory exists
+if [ -d "$DOTFILES_DIR" ]; then
+    print_message "Running stow in $DOTFILES_DIR..."
+    cd "$DOTFILES_DIR"
+    stow .
+    echo "Dotfiles have been stowed successfully."
+else
+    echo "Dotfiles directory $DOTFILES_DIR does not exist. Skipping stow."
+    echo "If you have a dotfiles repository, please clone it to $DOTFILES_DIR and rerun the script or manually run 'stow .' within it."
+fi
+
+# Set the wallpaper
+WALLPAPER="abstract.jpg"
+WALLPAPER_ABSOLUTE_PATH="$HOME/.dotfiles/.config/wallpaper/$WALLPAPER"
+set_wallpaper "$WALLPAPER_ABSOLUTE_PATH"
+
+print_message "Installation complete! All specified applications have been installed."
