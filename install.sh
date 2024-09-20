@@ -79,6 +79,10 @@ CASKS=(
     font-jetbrains-mono-nerd-font
     obsidian          # Added Obsidian
     raycast           # Added Raycast
+    slack             # Added Slack
+    tuple             # Added Tuple
+    1password         # Added 1Password
+    linear            # Added Linear
 )
 
 # Install Homebrew formulae
@@ -122,8 +126,8 @@ else
 fi
 
 # Set the wallpaper
-WALLPAPER="abstract.jpg"
-WALLPAPER_ABSOLUTE_PATH="$HOME/.dotfiles/.config/wallpaper/$WALLPAPER"
+WALLPAPER_RELATIVE_PATH=".config/wallpaper/abstract.jpg"
+WALLPAPER_ABSOLUTE_PATH="$HOME/$WALLPAPER_RELATIVE_PATH"
 set_wallpaper "$WALLPAPER_ABSOLUTE_PATH"
 
 print_message "Installation complete! All specified applications have been installed."
