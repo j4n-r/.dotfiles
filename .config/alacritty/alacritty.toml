@@ -6,14 +6,15 @@ import = [
     # "~/.config/alacritty/catppuccin-mocha.toml"
     #
     #    "~/.config/alacritty/flexoki.toml",
-    "~/.config/alacritty/rose-pine.toml"
+      "~/.config/alacritty/rose-pine.toml"
+  #    "~/.config/alacritty/rose-pine-moon.toml"
 ]
 
 [shell]
 program = "tmux"
 
 [window]
-opacity = 0.8 
+opacity =  0.9
 decorations = "Buttonless"
 
 [window.padding]

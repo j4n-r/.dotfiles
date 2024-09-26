@@ -2,10 +2,10 @@
 # Reload skhd configuration
 shift + cmd - r : skhd --reload
 # Focus windows
-alt - h : yabai -m window --focus west
-alt - j : yabai -m window --focus south
-alt - k : yabai -m window --focus north
-alt - l : yabai -m window --focus east
+# alt - h : yabai -m window --focus west
+# alt - j : yabai -m window --focus south
+# alt - k : yabai -m window --focus north
+# alt - l : yabai -m window --focus east
 
 
 
@@ -13,49 +13,49 @@ alt - l : yabai -m window --focus east
 cmd - space : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 # Move windows
-shift + alt - h : yabai -m window --warp west
-shift + alt - j : yabai -m window --warp south
-shift + alt - k : yabai -m window --warp north
-shift + alt - l : yabai -m window --warp east
-
-# Swap windows
-ctrl + alt - h : yabai -m window --swap west
-ctrl + alt - j : yabai -m window --swap south
-ctrl + alt - k : yabai -m window --swap north
-ctrl + alt - l : yabai -m window --swap east
+# shift + alt - h : yabai -m window --warp west
+# shift + alt - j : yabai -m window --warp south
+# shift + alt - k : yabai -m window --warp north
+# shift + alt - l : yabai -m window --warp east
+#
+# # Swap windows
+# ctrl + alt - h : yabai -m window --swap west
+# ctrl + alt - j : yabai -m window --swap south
+# ctrl + alt - k : yabai -m window --swap north
+# ctrl + alt - l : yabai -m window --swap east
 
 # Rotate window positions within the current space
-ctrl + alt - r : yabai -m space --rotate 90
+# ctrl + alt - r : yabai -m space --rotate 90
 
-# Toggle window floating on and off
-alt - t : yabai -m window --toggle float
+# # Toggle window floating on and off
+# alt - t : yabai -m window --toggle float
+#
+# # Toggle window split type
+# alt - e : yabai -m window --toggle split
 
-# Toggle window split type
-alt - e : yabai -m window --toggle split
-
-# Balance window sizes within the current space
-ctrl + alt - 0 : yabai -m space --balance
-
-# Equalize window dimensions across the current space
-ctrl + alt - e : yabai -m space --equalize
-
-# Focus spaces (desktops)
-ctrl - 1 : yabai -m space --focus 1
-ctrl - 2 : yabai -m space --focus 2
-ctrl - 3 : yabai -m space --focus 3
-ctrl - 4 : yabai -m space --focus 4
-ctrl - 5 : yabai -m space --focus 5
-ctrl - 6 : yabai -m space --focus 6
-ctrl - 7 : yabai -m space --focus 7
-ctrl - 8 : yabai -m space --focus 8
-
-
-# Move focused window to space and focus that space using Command + Shift + Number
-cmd + shift - 1 : yabai -m window --space 1 && yabai -m space --focus 1
-cmd + shift - 2 : yabai -m window --space 2 && yabai -m space --focus 2
-cmd + shift - 3 : yabai -m window --space 3 && yabai -m space --focus 3
-cmd + shift - 4 : yabai -m window --space 4 && yabai -m space --focus 4
-cmd + shift - 5 : yabai -m window --space 5 && yabai -m space --focus 5
-cmd + shift - 6 : yabai -m window --space 6 && yabai -m space --focus 6
-cmd + shift - 7 : yabai -m window --space 7 && yabai -m space --focus 7
-cmd + shift - 8 : yabai -m window --space 8 && yabai -m space --focus 8
+# # Balance window sizes within the current space
+# ctrl + alt - 0 : yabai -m space --balance
+#
+# # Equalize window dimensions across the current space
+# ctrl + alt - e : yabai -m space --equalize
+#
+# # Focus spaces (desktops)
+# ctrl - 1 : yabai -m space --focus 1
+# ctrl - 2 : yabai -m space --focus 2
+# ctrl - 3 : yabai -m space --focus 3
+# ctrl - 4 : yabai -m space --focus 4
+# ctrl - 5 : yabai -m space --focus 5
+# ctrl - 6 : yabai -m space --focus 6
+# ctrl - 7 : yabai -m space --focus 7
+# ctrl - 8 : yabai -m space --focus 8
+#
+#
+# # Move focused window to space and focus that space using Command + Shift + Number
+# alt + shift - 1 : yabai -m window --space 1 && yabai -m space --focus 1
+# alt + shift - 2 : yabai -m window --space 2 && yabai -m space --focus 2
+# alt + shift - 3 : yabai -m window --space 3 && yabai -m space --focus 3
+# alt + shift - 4 : yabai -m window --space 4 && yabai -m space --focus 4
+# alt + shift - 5 : yabai -m window --space 5 && yabai -m space --focus 5
+# alt + shift - 6 : yabai -m window --space 6 && yabai -m space --focus 6
+# alt + shift - 7 : yabai -m window --space 7 && yabai -m space --focus 7
+# alt + shift - 8 : yabai -m window --space 8 && yabai -m space --focus 8

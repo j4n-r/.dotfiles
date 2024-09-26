@@ -4,11 +4,6 @@
 echo "Installing commandline tools..."
 xcode-select --install
 
-# Install Brew
-echo "Installing Brew..."
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew analytics off
-
 # Brew Taps
 echo "Installing Brew Formulae..."
 brew tap homebrew/cask-fonts
