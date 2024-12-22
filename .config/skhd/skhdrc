@@ -10,7 +10,7 @@ shift + cmd - r : skhd --reload
 
 
 # instead of just `alacritty` or `/opt/homebrew/bin/alacritty`
-cmd - space : /Applications/Alacritty.app/Contents/MacOS/alacritty
+ctrl - space : /Applications/Alacritty.app/Contents/MacOS/alacritty
 
 # Move windows
 # shift + alt - h : yabai -m window --warp west

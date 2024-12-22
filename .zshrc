@@ -13,8 +13,13 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export PATH="$HOME/.config/emacs/bin/:$PATH"
 
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
 
+export PATH="$GOBIN:$PATH"
+export PATH="$GOPATH:$PATH"
 ### Keybindings
 bindkey '^H' backward-kill-word
 bindkey '5~' kill-word
@@ -82,3 +87,5 @@ eval "$(starship init zsh)"
 # -------------------------
 # git-svn-dcommit-push = git svn dcommit && git push github master:svntrunk
 
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"

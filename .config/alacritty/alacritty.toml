@@ -1,20 +1,9 @@
-import = [
-    # uncomment the flavour you want below:
-    # "~/.config/alacritty/catppuccin-latte.toml"
-    # "~/.config/alacritty/catppuccin-frappe.toml"
-    # "~/.config/alacritty/catppuccin-macchiato.toml"
-    # "~/.config/alacritty/catppuccin-mocha.toml"
-    #
-    #    "~/.config/alacritty/flexoki.toml",
-      "~/.config/alacritty/rose-pine.toml"
-  #    "~/.config/alacritty/rose-pine-moon.toml"
-]
 
-[shell]
-program = "tmux"
+# [terminal.shell]
+# program = "tmux"
 
 [window]
-opacity =  0.9
+opacity =  0.8
 decorations = "Buttonless"
 
 [window.padding]
@@ -39,4 +28,19 @@ style = "Bold"
 [font.italic]
 family = "JetBrainsMono Nerd Font"
 style = "Italic"
+
+[general]
+import = [
+    # uncomment the flavour you want below:
+    # "~/.config/alacritty/catppuccin-latte.toml"
+    # "~/.config/alacritty/catppuccin-frappe.toml"
+    # "~/.config/alacritty/catppuccin-macchiato.toml"
+    # "~/.config/alacritty/catppuccin-mocha.toml"
+    #
+    #    "~/.config/alacritty/flexoki.toml",
+      "~/.config/alacritty/rose-pine.toml"
+  #    "~/.config/alacritty/rose-pine-moon.toml"
+]
+
+[terminal]
 
