@@ -1,6 +1,25 @@
+theme = rose-pine
 background-opacity = 0.8 
 window-padding-x = 8
 window-padding-y = 8
-theme = rose-pine
 window-decoration = false
 resize-overlay = never
+font-size = 12
+mouse-hide-while-typing = true
+gtk-tabs-location = bottom
+
+keybind = ctrl+c=paste_from_clipboard
+keybind = ctrl+o=scroll_page_up
+keybind = ctrl+d=scroll_page_down
+keybind = ctrl+g>n=new_tab
+keybind = ctrl+g>v=new_split:right
+keybind = ctrl+g>h=goto_split:left
+keybind = ctrl+g>l=goto_split:right
+keybind = ctrl+g>j=next_tab
+keybind = ctrl+g>k=previous_tab
+keybind = ctrl+g>x=close_surface
+
+
+# only works on macos
+keybind = global:super+t=toggle_quick_terminal
+
