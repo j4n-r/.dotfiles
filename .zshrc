@@ -77,6 +77,13 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+export PATH="$HOME/.config/emacs/bin:$PATH"
+
+export GOPATH=$HOME/go
+export GOBIN=$HOME/go/bin
+export PATH="$GOBIN:$PATH"
+export PATH="$GOPATH:$PATH"
+
 
 
 ### Keybindings

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-op=$(echo -e " Shutdown\n Reboot\n Sleep\n Lock\n Logout" | wofi -i --dmenu | awk '{print tolower($2)}')
+op=$(echo -e "  Shutdown\n Reboot\n Sleep\n  Lock\n  Logout" | wofi -i --dmenu | awk '{print tolower($2)}')
 
 case $op in
 shutdown)

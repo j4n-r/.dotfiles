@@ -30,6 +30,7 @@
         "show-passive-items": true,
     },
     "clock": {
+        "timezone": "Europe/Berlin",
         "interval": 60,
         "format": "  {:%a %d.%m.  %H:%M}", // %b %d %Y  --Date formatting
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
