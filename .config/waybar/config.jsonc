@@ -65,8 +65,8 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon} {volume}% 󰂯",
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": "{icon}  {volume}% 󰂯",
         "format-bluetooth-muted": "󰖁 {icon} 󰂯",
         "format-muted": "󰖁 {format_source}",
         "format-source": "{volume}% ",
@@ -88,7 +88,7 @@
         	},
         	"format": "{icon} {capacity}%",
         	"format-charging": "󰂊 {capacity}%",
-        	"format-plugged": "󰂅{capacity}%",
+        	"format-plugged": "󰂅 {capacity}%",
         	"format-alt": "{time} {icon}",
         	"format-full": "󰂅 {capacity}%",
         	"format-icons": ["󰢜", "󰢝", "󰂊"]

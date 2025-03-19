@@ -18,4 +18,7 @@ lock)
 logout)
 	hyprctl dispatch exit
 	;;
+hibernate)
+    systemctl hibernate
+    ;;
 esac
