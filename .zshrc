@@ -35,6 +35,7 @@ export PATH="$GOBIN:$PATH"
 alias ll="ls -la"
 alias fzfd="fzf -dir"
 alias vim="nvim"
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 export PATH=$HOME/.local/bin:$PATH
